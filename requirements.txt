@@ -1,0 +1,11 @@
+langchain
+flask
+pypdf
+sentence-transformers==2.2.2
+python-dotenv
+pinecone[grpc]
+langchain-pinecone
+langchain_community
+langchain_openai
+langchain_experimental
+-e .   #this code used full adding medical-ai-project to pip list
