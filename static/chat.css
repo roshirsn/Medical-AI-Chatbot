@@ -35,7 +35,7 @@ body, html {
 }
 
 .bg-primary {
-  background-color: #0d6efd !important;
+  background-color: #479ad1 !important;
 }
 
 .rounded-3 {
@@ -67,6 +67,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #479ad1;
 }
 
 /* Scrollbar Styling */
