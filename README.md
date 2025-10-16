@@ -1,92 +1,137 @@
-# Medical-AI-Chatbot
+# 🩺 Medical AI Chatbot 🤖
 
-![Python](https://img.shields.io/badge/-Python-blue?logo=python&logoColor=white) ![License](https://img.shields.io/badge/license-MIT-green)
+This project provides a chatbot interface powered by AI to answer medical questions. It leverages a Pinecone vector store for efficient information retrieval and a language model (LLM) to generate informative and helpful responses. The chatbot filters offensive language and can handle casual conversation, providing a user-friendly experience.
 
-## 📝 Description
+## 🚀 Key Features
 
-Develop a Medical-AI-Chatbot using Python to provide users with quick and reliable medical information. This chatbot will leverage advanced natural language processing techniques to understand user queries and provide accurate responses based on a comprehensive medical knowledge base. Key features include symptom checking, medication information, and general health advice.
+- **Medical Question Answering:** Answers user's medical questions based on a knowledge base stored in a Pinecone vector store.
+- **Contextual Understanding:** Uses a language model (LLM) to understand the context of the question and provide relevant answers.
+- **Offensive Language Filtering:** Detects and filters offensive language to ensure a safe and respectful environment.
+- **Casual Conversation Handling:** Can handle simple greetings and casual conversation.
+- **Efficient Information Retrieval:** Uses Pinecone for fast and accurate retrieval of relevant medical information.
+- **Customizable Prompts:** Uses prompt engineering to guide the LLM's responses and ensure accuracy.
 
 ## 🛠️ Tech Stack
 
--  Python
--  HTML
--  Langchain
--  RAG
--  Pinecone
--  Together.ai
+*   **Frontend:** (Likely a simple HTML/JS interface, not explicitly defined in provided files)
+*   **Backend:** Flask
+*   **Vector Database:** Pinecone
+*   **Language Model:** OpenAI (or similar, via `langchain_openai`)
+*   **Embeddings:** Hugging Face Transformers ('sentence-transformers/all-MiniLM-L6-v2')
+*   **Python Libraries:**
+    *   langchain
+    *   langchain_pinecone
+    *   langchain_openai
+    *   langchain_community
+    *   langchain_experimental
+    *   flask
+    *   pypdf
+    *   sentence-transformers==2.2.2
+    *   python-dotenv
+    *   pinecone\[grpc]
+    *   os
 
+## 📦 Getting Started
 
-## 📦 Key Dependencies
+Follow these instructions to set up and run the project locally.
+
+### Prerequisites
+
+- Python 3.7+
+- Pip package manager
+- Pinecone API key
+- OpenAI API key (or API key for the LLM you are using)
+
+### Installation
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone <repository_url>
+    cd medical-ai-project
+    ```
+
+2.  **Create a virtual environment (recommended):**
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Linux/macOS
+    venv\Scripts\activate  # On Windows
+    ```
+
+3.  **Install the dependencies:**
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Set up environment variables:**
+
+    *   Create a `.env` file in the project root.
+    *   Add the following variables, replacing the placeholders with your actual API keys:
+
+        ```
+        PINECONE_API_KEY=<your_pinecone_api_key>
+        OPENAI_API_KEY=<your_openai_api_key> # Or API key for your LLM
+        ```
+
+### Running Locally
+
+1.  **Prepare the Pinecone index:**
+
+    *   Run `store_index.py` to create the Pinecone index and populate it with data from the PDF files. Make sure you have PDF files in a directory specified in `store_index.py`.
+
+        ```bash
+        python store_index.py
+        ```
+
+2.  **Run the Flask application:**
+
+    ```bash
+    python app.py
+    ```
+
+    This will start the Flask development server. You can then access the chatbot interface in your web browser (likely at `http://127.0.0.1:5000`).
+
+## 💻 Usage
+
+1.  Open your web browser and navigate to the address where the Flask application is running (e.g., `http://127.0.0.1:5000`).
+2.  You should see the chatbot interface.
+3.  Type your medical question in the input field and press Enter or click the "Send" button.
+4.  The chatbot will process your question and display the answer.
+
+## 📂 Project Structure
 
 ```
-langchain: latest
-flask: latest
-pypdf: latest
-sentence-transformers: 2.2.2
-python-dotenv: latest
-pinecone[grpc]: latest
-langchain-pinecone: latest
-langchain_community: latest
-langchain_openai: latest
-langchain_experimental: latest
--e .   #this code used full adding medical-ai-project to pip list: latest
+medical-ai-project/
+├── app.py               # Main Flask application file
+├── store_index.py       # Creates and populates the Pinecone index
+├── src/
+│   ├── helper.py        # Helper functions for loading data, splitting text, and downloading embeddings
+│   └── prompt.py        # Defines the system prompt for the LLM
+├── .env                 # Environment variables (API keys)
+├── requirements.txt     # Project dependencies
+├── README.md            # This file
+└── venv/                # Virtual environment (optional)
 ```
 
-## 📁 Project Structure
+## 📸 Screenshots
 
-```
-.
-├── Data
-│   └── medical_book.pdf
-├── LICENSE
-├── app.py
-├── requirements.txt
-├── research
-│   └── trials.ipynb
-├── setup.py
-├── src
-│   ├── __init__.py
-│   ├── helper.py
-│   └── prompt.py
-├── static
-│   ├── chat.css
-│   └── style.css
-├── store_index.py
-├── template.py
-├── templates
-│   ├── app.png
-│   ├── chat.html
-│   ├── doctor.png
-│   ├── index.html
-│   ├── untitled_image.png
-│   └── user.png
-└── test.py
-```
+(Add screenshots of the chatbot interface here)
 
-## 🛠️ Development Setup
+## 🤝 Contributing
 
-### Python Setup
-1. Install Python (v3.8+ recommended)
-2. Create a virtual environment: `python -m venv venv`
-3. Activate the environment:
-   - Windows: `venv\Scripts\activate`
-   - Unix/MacOS: `source venv/bin/activate`
-4. Install dependencies: `pip install -r requirements.txt`
+Contributions are welcome! Please follow these steps:
 
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and commit them with clear and concise messages.
+4.  Submit a pull request.
 
-## 👥 Contributing
+## 📝 License
 
-Contributions are welcome! Here's how you can help:
+This project is licensed under the [MIT License](LICENSE).
 
-1. **Fork** the repository
-2. **Clone** your fork: `git clone https://github.com/roshirsn/Medical-AI-Chatbot.git`
-3. **Create** a new branch: `git checkout -b feature/your-feature`
-4. **Commit** your changes: `git commit -am 'Add some feature'`
-5. **Push** to your branch: `git push origin feature/your-feature`
-6. **Open** a pull request
+Thanks for checking out this project! I hope it's helpful.
 
-Please ensure your code follows the project's style guidelines and includes tests where applicable.
-
-## 📜 License
-
-This project is licensed under the MIT License.
+This is written by [readme.ai](https://readme-generator-phi.vercel.app/).
