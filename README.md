@@ -8,7 +8,12 @@ Develop a Medical-AI-Chatbot using Python to provide users with quick and reliab
 
 ## 🛠️ Tech Stack
 
-- 🐍 Python
+-  Python
+-  HTML
+-  Langchain
+-  RAG
+-  Pinecone
+-  Together.ai
 
 
 ## 📦 Key Dependencies
