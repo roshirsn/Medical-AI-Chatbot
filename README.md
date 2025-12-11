@@ -127,8 +127,9 @@ medical-ai-project/
 
 
 
-## High level architecture
-'''
+## 🏗️ High Level Architecture
+
+```mermaid
 flowchart TD
     A[User Message] --> B[Flask Backend]
     B --> C[Pinecone v8 Retriever]
@@ -137,7 +138,7 @@ flowchart TD
     D --> E
     E --> F[Final Answer]
     F --> G[Frontend Chat UI]
-'''
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
