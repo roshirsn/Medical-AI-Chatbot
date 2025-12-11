@@ -119,10 +119,10 @@ medical-ai-project/
 
 ## 📸 Screenshots
 
-<img src="assets/Screenshot 2025-12-11 115939.png" width="350px">
-<img src="assets/Screenshot 2025-12-11 120518.png" width="350px">
-<img src="assets/Screenshot 2025-12-11 123443.png" width="350px">
-<img src="assets/Screenshot 2025-12-11 123524.png" width="350px">
+<img src="assets/Screenshot 2025-12-11 115939.png" width="400px">
+<img src="assets/Screenshot 2025-12-11 120518.png" width="400px">
+<img src="assets/Screenshot 2025-12-11 123443.png" width="400px">
+<img src="assets/Screenshot 2025-12-11 123524.png" width="400px">
 
 
 
