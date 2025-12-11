@@ -153,5 +153,3 @@ Contributions are welcome! Please follow these steps:
 This project is licensed under the [MIT License](LICENSE).
 
 Thanks for checking out this project! I hope it's helpful.
-
-This is written by [readme.ai](https://readme-generator-phi.vercel.app/).
