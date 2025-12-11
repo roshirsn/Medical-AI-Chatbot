@@ -18,19 +18,18 @@ This project provides a chatbot interface powered by AI to answer medical questi
 *   **Vector Database:** Pinecone
 *   **Language Model:** OpenAI (or similar, via `langchain_openai`)
 *   **Embeddings:** Hugging Face Transformers ('sentence-transformers/all-MiniLM-L6-v2')
-*   **Python Libraries:**
-    *   langchain
-    *   langchain_pinecone
-    *   langchain_openai
-    *   langchain_community
-    *   langchain_experimental
-    *   flask
-    *   pypdf
-    *   sentence-transformers==2.2.2
-    *   python-dotenv
-    *   pinecone\[grpc]
-    *   os
+## Tech Stack
 
+| Area          | Technology |
+|---------------|------------|
+| Backend       | Flask (Python) |
+| LLM           | Google Gemini 2.5 Flash |
+| Vector DB     | Pinecone v8 |
+| Embeddings    | SentenceTransformers / HuggingFace |
+| Frontend      | HTML, Bootstrap, jQuery |
+| Environment   | Python 3.9+ |
+
+---
 ## 📦 Getting Started
 
 Follow these instructions to set up and run the project locally.
@@ -104,20 +103,40 @@ Follow these instructions to set up and run the project locally.
 
 ```
 medical-ai-project/
-├── app.py               # Main Flask application file
-├── store_index.py       # Creates and populates the Pinecone index
+├── app.py                    # Flask backend + RAG pipeline
+├── store_index.py            # PDF ingestion + Pinecone indexing
+├── templates/
+│   └── chat.html             # UI
+├── static/assets/            # Project screenshots and images
 ├── src/
-│   ├── helper.py        # Helper functions for loading data, splitting text, and downloading embeddings
-│   └── prompt.py        # Defines the system prompt for the LLM
-├── .env                 # Environment variables (API keys)
-├── requirements.txt     # Project dependencies
-├── README.md            # This file
-└── venv/                # Virtual environment (optional)
+│   ├── helper.py             # Embeddings and preprocessing
+│   ├── prompt.py             # System prompt design
+│   └── ...
+├── requirements.txt
+└── README.md
+
 ```
 
 ## 📸 Screenshots
 
-(Add screenshots of the chatbot interface here)
+<img src="static/assets/Screenshot 2025-12-11 115939.png" width="750px">
+<img src="static/assets/Screenshot 2025-12-11 120518.png" width="750px">
+<img src="static/assets/Screenshot 2025-12-11 123443.png" width="750px">
+<img src="static/assets/Screenshot 2025-12-11 123524.png" width="750px">
+
+
+
+
+## High level architecture
+
+flowchart TD
+    A[User Message] --> B[Flask Backend]
+    B --> C[Pinecone v8 Retriever]
+    C --> D[Top-k Chunks]
+    B --> E[Gemini 2.5 Flash LLM]
+    D --> E
+    E --> F[Final Answer]
+    F --> G[Frontend Chat UI]
 
 ## 🤝 Contributing
 
