@@ -53,24 +53,34 @@
 <script>
     $(document).ready(function () {
 
-      // AUTO GREETING WHEN CHAT OPENS
-      const now = new Date();
-      const time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+      // --- AUTO GREETING (SHOW ONLY ONCE) ---
+      try {
+        if (!sessionStorage.getItem("medibot_greeting_shown")) {
+          const now = new Date();
+          const time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
 
-      const greeting = `
-        <div class="d-flex justify-content-start mb-3">
-          <img src="https://i.ibb.co/HTtL7nzf/doctor.png" class="rounded-circle me-2" width="40" height="40" alt="app">
-          <div class="bg-primary text-white p-2 rounded-3">
-            Hello! How can I assist you with your medical questions today?
-            <div class="text-end small text-light">${time}</div>
-          </div>
-        </div>
-      `;
+          const greeting = `
+            <div class="d-flex justify-content-start mb-3">
+              <img src="https://i.ibb.co/HTtL7nzf/doctor.png" class="rounded-circle me-2" width="40" height="40" alt="app">
+              <div class="bg-primary text-white p-2 rounded-3">
+                Hello! How can I assist you with your medical questions today?
+                <div class="text-end small text-light">${time}</div>
+              </div>
+            </div>
+          `;
 
-      $("#messageFormeight").append(greeting);
-      $("#messageFormeight").scrollTop($("#messageFormeight")[0].scrollHeight);
-      // END AUTO GREETING
+          $("#messageFormeight").append(greeting);
+          $("#messageFormeight").scrollTop($("#messageFormeight")[0].scrollHeight);
 
+          // Mark greeting as shown for this browser tab
+          sessionStorage.setItem("medibot_greeting_shown", "1");
+        }
+      } catch (e) {
+        console.warn("Greeting session guard error", e);
+      }
+      // --- END AUTO GREETING ONCE ---
+
+      // Handle user message submit
       $("#messageArea").on("submit", function (event) {
         event.preventDefault();
         const now = new Date();
@@ -109,6 +119,7 @@
       });
     });
 </script>
+
 
 </body>
 </html>

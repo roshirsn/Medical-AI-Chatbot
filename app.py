@@ -28,29 +28,33 @@ def normalize_text(s: str) -> str:
 def is_casual_message(user_input: str) -> str | None:
     s = normalize_text(user_input)
 
-    casual = ["ok", "okay", "k", "fine", "alright", "hmm", "sure", "great", "thanks"]
+    # empty or missing → not casual greeting
+    if not s:
+        return None
 
-    if s in casual:
-        return "Sure — let me know your question whenever you're ready."
+    # If text contains question-like patterns → this is NOT casual, must go to RAG
+    question_markers = ["what", "which", "why", "how", "when", "where", "?"]
+    if any(q in s for q in question_markers):
+        return None
 
-    greetings = ["hi", "hello", "hey", "good morning", "good evening", "good afternoon"]
+    # greetings ONLY if exact or near-exact greeting
+    greetings = [
+        "hi", "hello", "hey",
+        "good morning", "good evening", "good afternoon"
+    ]
+
     for g in greetings:
-        if g in s:
+        # whole-word match
+        if s == g or f" {g} " in f" {s} ":
             return "Hello! How can I assist you with your medical questions today?"
 
-    casual_responses = {
-        "how are you": "I'm doing well! How can I help you with medical information today?",
-        "who are you": "I'm a medical assistant chatbot built to answer healthcare questions.",
-        "where are you from": "I'm running on a cloud server to help users from anywhere!",
-        "thank you": "You're welcome!",
-        "thanks": "Glad to help!",
-        "thx": "Glad to help!",
-    }
-    for key, val in casual_responses.items():
-        if key in s:
-            return val
+    # simple casual acknowledgements (no questions)
+    casual_short = {"ok", "okay", "alright", "fine", "hmm", "sure", "thanks", "thank you", "thx"}
+    if s in casual_short:
+        return "Sure — let me know your question whenever you're ready."
 
     return None
+
 
 
 def is_offensive(user_input: str) -> bool:
@@ -259,7 +263,9 @@ def manual_rag_answer(question: str, retriever, system_prompt_text: str, k: int 
     # 1) Retrieve docs and create short snippets
     docs = retriever.get_relevant_documents(question, k=k)
     snippets = _build_context_snippets(docs)
-    context_text = "\n\n".join([f"[{tag}] {s}" for tag, s in snippets]).strip()
+    # context_text = "\n\n".join([f"[{tag}] {s}" for tag, s in snippets]).strip()
+    context_text = "\n\n".join([s for (_, s) in snippets]).strip()
+
 
     # 2) Build prompt preferring context but allowing labeled general knowledge fallback
     prompt = (
