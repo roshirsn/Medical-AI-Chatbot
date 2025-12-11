@@ -37,7 +37,7 @@ INDEX_NAME = "medicalbot"
 DIM = 384
 BATCH = 100
 
-# --- load and chunk PDFs ---
+# load and chunk PDFs
 print("[store_index] Loading PDFs from Data/ ...")
 docs = load_pdf_file("Data/")
 chunks = text_split(docs)
@@ -94,10 +94,8 @@ if NEW_PINECONE:
             else:
                 raise
         except Exception as e:
-            # unknown create error -> bubble up
+            # unknown create error
             raise
-
-    # obtain index handle (try both naming conventions)
     try:
         index = pc.Index(INDEX_NAME)
     except AttributeError:
@@ -138,7 +136,6 @@ for i in range(0, n, BATCH):
     ids = [str(uuid.uuid4()) for _ in batch_texts]
     vectors = embed_texts(batch_texts)
 
-    # prepare three common payload shapes
     items_tuple = [(_id, vec, {"text": txt}) for _id, vec, txt in zip(ids, vectors, batch_texts)]
     payload = [{"id": _id, "values": vec, "metadata": {"text": txt}} for _id, vec, txt in zip(ids, vectors, batch_texts)]
     simple_pairs = [{"id": _id, "values": vec} for _id, vec in zip(ids, vectors)]
@@ -146,7 +143,6 @@ for i in range(0, n, BATCH):
     upserted = False
     # Try a few variants
     try:
-        # modern: index.upsert(vectors=...) sometimes expects list of tuples
         try:
             index.upsert(vectors=items_tuple)
             upserted = True
